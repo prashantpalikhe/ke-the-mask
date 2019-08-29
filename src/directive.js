@@ -10,6 +10,11 @@ function event (name) {
 
 export default function (el, binding) {
   var config = binding.value || {}
+  var defaults = {
+    masked: true,
+    mask: config,
+    tokens: tokens
+  }
   if (Array.isArray(config) || typeof config === 'string') {
     config = {
       masked: true,
@@ -17,6 +22,8 @@ export default function (el, binding) {
       tokens: tokens
     }
   }
+  
+  config = Object.assign({}, defaults, config)
 
   if (el.tagName.toLocaleUpperCase() !== 'INPUT') {
     var els = el.getElementsByTagName('input')
