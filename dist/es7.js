@@ -51,8 +51,9 @@ function maskit(value, mask, masked = true, tokens) {
   var iMask = 0;
   var iValue = 0;
   var output = '';
+  var cMask = '';
   while (iMask < mask.length && iValue < value.length) {
-    var cMask = mask[iMask];
+    cMask = mask[iMask];
     var masker = tokens[cMask];
     var cValue = value[iValue];
     if (masker && !masker.escape) {
@@ -75,7 +76,7 @@ function maskit(value, mask, masked = true, tokens) {
   // fix mask that ends with a char: (#)
   var restOutput = '';
   while (iMask < mask.length && masked) {
-    var cMask = mask[iMask];
+    cMask = mask[iMask];
     if (tokens[cMask]) {
       restOutput = '';
       break;
@@ -126,6 +127,7 @@ function mask (el, binding) {
     mask: config,
     tokens: tokens
   };
+  var oldValue = '';
   if (Array.isArray(config) || typeof config === 'string') {
     config = {
       masked: true,
@@ -170,7 +172,13 @@ function mask (el, binding) {
     if (el === document.activeElement) {
       el.setSelectionRange(position, position);
       setTimeout(function () {
+        // account for the caret jumping backwards, see issue #49
+        // by substracting Math.sign, we decrement the absolute value by 1
+        let lengthDiff = el.value.length - oldValue.length;
+        lengthDiff = lengthDiff - Math.sign(lengthDiff);
+        position = position + lengthDiff;
         el.setSelectionRange(position, position);
+        oldValue = el.value;
       }, 0);
     }
     el.dispatchEvent(event('input'));
