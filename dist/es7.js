@@ -121,7 +121,7 @@ function event(name) {
 }
 
 function mask (el, binding) {
-  var config = binding.value || {};
+  var config = binding.value || '';
   var defaults = {
     masked: true,
     mask: config,
