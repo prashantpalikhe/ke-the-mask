@@ -9,7 +9,7 @@ function event (name) {
 }
 
 export default function (el, binding) {
-  var config = binding.value || {}
+  var config = binding.value || ''
   var defaults = {
     masked: true,
     mask: config,
