@@ -169,7 +169,10 @@ function mask (el, binding) {
     while (position < el.value.length && el.value.charAt(position - 1) !== digit) {
       position++;
     }
-    if (el === document.activeElement) {
+
+    var canUseSetSelectionRange = el.setSelectionRange && /text|search|password|tel|url/i.test(el.type || "");
+
+    if (el === document.activeElement && canUseSetSelectionRange) {
       el.setSelectionRange(position, position);
       setTimeout(function () {
         // account for the caret jumping backwards, see issue #49
