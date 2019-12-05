@@ -1,5 +1,5 @@
 {
-  "name": "ke-the-mask",
+  "name": "vue-mask",
   "version": "0.0.3",
   "description": "Tiny (2KB) and dependency free mask input for Vue.js",
   "main": "dist/cjs.js",
