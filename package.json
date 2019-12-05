@@ -12,7 +12,6 @@
   },
   "scripts": {
     "build": "node build",
-    "preversion": "npm run build && (git add .) && git commit -m Build",
     "patch": "npm version patch && npm publish && git push",
     "minor": "npm version minor && npm publish && git push",
     "major": "npm version major && npm publish && git push"
